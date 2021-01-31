@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\UserChartController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +19,18 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+
+// Added by me
+
+Route::get('/questions/chart', 'UserChartController@index');
+
+
+Route::get('/questions/ver', [QuestionController::class, 'ver_todos']);
+Route::resource('questions', 'QuestionController');
+
+require __DIR__.'/auth.php';
